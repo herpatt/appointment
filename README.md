@@ -27,3 +27,9 @@ http://localhost:5173/
 ~/appointment/backend/appointment.db
 
 Load the above db file in Dbeaver IDE or Eclipse to view its table data
+
+#####Load all appointments
+http://localhost:3000/appointments
+
+#####Load appointment by appointment_id
+http://localhost:3000/appointment/{appointment_id}
