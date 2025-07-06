@@ -21,3 +21,9 @@ http://localhost:3000
 
 #####FrontEnd URL
 http://localhost:5173/
+
+
+#####Included SQLite In-built DB
+~/appointment/backend/appointment.db
+
+Load the above db file in Dbeaver IDE or Eclipse to view its table data

@@ -1,6 +1,6 @@
 const db = require('./db');
 
-function getAgents() {
+function getAppointments() {
     return new Promise((resolve, reject) => {
         db.all('SELECT * FROM appointment', (err, rows) => {
             if(err)
@@ -11,7 +11,7 @@ function getAgents() {
     });
 }
 
-function getAgentById(id) {
+function getAppointmentById(id) {
     return new Promise((resolve, reject) => {
         db.all('SELECT * FROM appointment where id=(?)',id, (err, rows) => {
             if(err)
@@ -22,9 +22,9 @@ function getAgentById(id) {
     });
 }
 
-function addAgent(firstName, lastName) {
+function addAppointment(name, mobile, email, enquiry_type, appointment_date, appointment_time) {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO appointment (firstName, lastName) VALUES (?, ?)', firstName, lastName, (err) => {
+        db.run('INSERT INTO appointment (name, mobile, email, enquiry_type, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?, ?)', name, mobile, email, enquiry_type, appointment_date, appointment_time, (err) => {
             if(err)
                 reject(err);
             else
@@ -33,9 +33,9 @@ function addAgent(firstName, lastName) {
     });
 }
 
-function editAgent(id, firstName, lastName) {
+function editAppointment(id, name, mobile, email, enquiry_type, appointment_date, appointment_time) {
     return new Promise((resolve, reject) => {
-        db.run('UPDATE appointment SET firstName = (?), lastName = (?) where id = (?)', [firstName, lastName, id], (err) => {
+        db.run('UPDATE appointment SET name = (?), mobile = (?), mobile = (?), email = (?), enquiry_type = (?), appointment_date = (?), appointment_time = (?)  where id = (?)', [name, mobile, email, enquiry_type, appointment_date, appointment_time], (err) => {
             if(err)
                 reject(err);
             else
@@ -44,7 +44,7 @@ function editAgent(id, firstName, lastName) {
     });
 }
 
-function deleteAgent(id) {
+function deleteAppointment(id) {
     return new Promise((resolve, reject) => {
         db.run('DELETE FROM appointment WHERE id = (?)', id, (err) => {
             if(err)
@@ -56,9 +56,9 @@ function deleteAgent(id) {
 }
 
 module.exports = {
-    getAgents,
-    getAgentById,
-    addAgent,
-    editAgent,
-    deleteAgent
+    getAppointments,
+    getAppointmentById,
+    addAppointment,
+    editAppointment,
+    deleteAppointment
 };

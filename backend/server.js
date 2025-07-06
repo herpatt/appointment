@@ -14,36 +14,45 @@ app.use(bodyParser.json());
 
 // GET ALL
 app.get("/appointments", async function(req, res) {
-    const allAgents = await appointment.getAgents();
-    res.send(allAgents);
+    const allAppointments = await appointment.getAppointments();
+    res.send(allAppointments);
 });
 
 // GET
 app.get("/appointment/:id", async function(req, res) {
-    const agent = await appointment.getAgentById(req.params.id);
+    const agent = await appointment.getAppointmentById(req.params.id);
     res.send(agent);
 });
 
 // POST
 app.post("/appointment", async function(req, res) {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    await appointment.addAgent(firstName, lastName);
+    const name = req.body.name;
+    console.log('request body input : ',req.body);
+    const mobile = req.body.mobile;
+    const email = req.body.email;
+    const enquiry_type = req.body.enquiry_type;
+    const appointment_date = req.body.appointment_date;
+    const appointment_time = req.body.appointment_time;
+    await appointment.addAppointment(name, mobile, email, enquiry_type, appointment_date, appointment_time);
     res.send({"message": "Success"});
 });
 
 // PUT
 app.put("/appointment/:id", async function(req, res) {
     const id = req.params.id;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    await appointment.editAgent(id,firstName,lastName);
+    const name = req.body.name;
+    const mobile = req.body.mobile;
+    const email = req.body.email;
+    const enquiry_type = req.body.enquiry_type;
+    const appointment_date = req.body.appointment_date;
+    const appointment_time = req.body.appointment_time;
+    await appointment.editAppointment(id, name, mobile, email, enquiry_type, appointment_date, appointment_time);
     res.send({"message": "Success"});
 });
 
 // DELETE
 app.delete("/appointment/:id", async function(req, res) {
-    await appointment.deleteAgent(req.params.id);
+    await appointment.deleteAppointment(req.params.id);
     res.send({"message": "Success"});
 });
 
