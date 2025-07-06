@@ -1,0 +1,16 @@
+{
+  "name": "appointment",
+  "version": "1.0.0",
+  "description": "appointment",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "server": "cd backend && npm run dev:server",
+    "client": "cd frontend && npm run dev:client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
