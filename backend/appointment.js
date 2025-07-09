@@ -24,7 +24,7 @@ function getAppointmentById(id) {
 
 function addAppointment(name, mobile, email, enquiry_type, appointment_date, appointment_time) {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO appointment (name, mobile, email, enquiry_type, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?, ?)', name, mobile, email, enquiry_type, appointment_date, appointment_time, (err) => {
+        db.run('INSERT INTO appointment (name, mobile, email, enquiry_type, appointment_date, appointment_time,status) VALUES (?, ?, ?, ?, ?, ?, ?)', name, mobile, email, enquiry_type, appointment_date, appointment_time,'Pending', (err) => {
             if(err)
                 reject(err);
             else
@@ -36,6 +36,17 @@ function addAppointment(name, mobile, email, enquiry_type, appointment_date, app
 function editAppointment(id, name, mobile, email, enquiry_type, appointment_date, appointment_time) {
     return new Promise((resolve, reject) => {
         db.run('UPDATE appointment SET name = (?), mobile = (?), mobile = (?), email = (?), enquiry_type = (?), appointment_date = (?), appointment_time = (?)  where id = (?)', [name, mobile, email, enquiry_type, appointment_date, appointment_time], (err) => {
+            if(err)
+                reject(err);
+            else
+                resolve();
+        });
+    });
+}
+
+function editAppointmentStatus(id, status) {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE appointment SET status = (?) where id = (?)', [status], (err) => {
             if(err)
                 reject(err);
             else
@@ -60,5 +71,6 @@ module.exports = {
     getAppointmentById,
     addAppointment,
     editAppointment,
+    editAppointmentStatus,
     deleteAppointment
 };
