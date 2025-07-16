@@ -37,6 +37,33 @@ app.post("/appointment", async function(req, res) {
     res.send({"message": "Success"});
 });
 
+// GET
+app.get("/slot/:name", async function(req, res) {
+    console.log('request params name : ',req.params.name);
+    const slots = await appointment.loadAppointmentSlot(req.params.name);
+    //const jsonObject = JSON.parse(slots);
+    console.log('response body jsonObject : ',slots.VALUE);
+    console.log('response body input : ',slots);
+    res.send(slots.VALUE);
+});
+
+// POST
+app.post("/slot/:name", async function(req, res) {
+    console.log('request params name : ',req.params.name);
+    console.log('request body input : ',req.body);
+    await appointment.addAppointmentSlots(req.params.name, req.body);
+    res.send({"message": "Success"});
+});
+
+// PUT
+app.put("/slot/:name", async function(req, res) {
+    console.log('request params name : ',req.params.name);
+    console.log('request body input : ',req.body);
+    await appointment.editAppointmentSlots(req.params.name, req.body);
+    res.send({"message": "Success"});
+});
+
+
 // PUT
 app.put("/appointment/:id", async function(req, res) {
     const id = req.params.id;

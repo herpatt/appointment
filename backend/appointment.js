@@ -33,6 +33,42 @@ function addAppointment(name, mobile, email, enquiry_type, appointment_date, app
     });
 }
 
+function addAppointmentSlots(key, jsonObject) {
+    return new Promise((resolve, reject) => {
+        const jsonString = JSON.stringify(jsonObject);
+
+        db.run('INSERT INTO appointment_slots (key, value) VALUES (?, ?)', key, jsonString, (err) => {
+            if(err)
+                reject(err);
+            else
+                resolve();
+        });
+    });
+}
+
+function editAppointmentSlots(key, jsonObject) {
+    return new Promise((resolve, reject) => {
+        const jsonString = JSON.stringify(jsonObject);
+        db.run('UPDATE appointment_slots SET value = (?) where key = (?)', [key, jsonString], (err) => {
+            if(err)
+                reject(err);
+            else
+                resolve();
+        });
+    });
+}
+
+function loadAppointmentSlot(key) {
+    return new Promise((resolve, reject) => {
+        db.get('SELECT value FROM appointment_slots where key=(?)',key, (err, rows) => {
+            if(err)
+                reject(err);
+            else
+                resolve(rows);
+        });
+    });
+}
+
 function editAppointment(id, name, mobile, email, enquiry_type, appointment_date, appointment_time) {
     return new Promise((resolve, reject) => {
         db.run('UPDATE appointment SET name = (?), mobile = (?), mobile = (?), email = (?), enquiry_type = (?), appointment_date = (?), appointment_time = (?)  where id = (?)', [name, mobile, email, enquiry_type, appointment_date, appointment_time], (err) => {
@@ -72,5 +108,8 @@ module.exports = {
     addAppointment,
     editAppointment,
     editAppointmentStatus,
-    deleteAppointment
+    deleteAppointment,
+    addAppointmentSlots,
+    editAppointmentSlots,
+    loadAppointmentSlot
 };
