@@ -5,9 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "build": "npm run install-backend && npm run install-frontend",
     "server": "cd backend && npm run dev:server",
     "client": "cd frontend && npm run dev:client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "dependencies": {
